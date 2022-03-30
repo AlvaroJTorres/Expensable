@@ -7,8 +7,12 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "react": "^17.0.2",
+    "react-datepicker": "^4.7.0",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^7.28.1",
+    "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
+    "styled-components": "^5.3.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -34,5 +38,16 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@emotion/react": "^11.8.2",
+    "autoprefixer": "^10.4.4",
+    "babel-plugin-macros": "^3.1.0",
+    "date-fns": "^2.28.0",
+    "postcss": "^8.4.12",
+    "postcss-cli": "^9.1.0",
+    "react-icons": "^4.3.1",
+    "tailwindcss": "^3.0.23",
+    "twin.macro": "^2.8.2"
   }
 }

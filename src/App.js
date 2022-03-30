@@ -1,24 +1,78 @@
-import logo from './logo.svg';
-import './App.css';
+import { css, Global } from "@emotion/react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  ProtectedRoute,
+  ProtectedRegistrationRoute,
+} from "./routes/ProtectedRoutes";
+import Budgets from "./pages/Budgets";
+import Categories from "./pages/Categories";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import Transactions from "./pages/Transactions";
+import NoMatch from "./pages/NoMatch";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Global
+        styles={css`
+          @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@600&display=swap");
+          * {
+            font-family: "Inter";
+          }
+          h1 {
+            font-family: "Montserrat";
+          }
+        `}
+      />
+
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route
+            path="/Login"
+            element={
+              <ProtectedRegistrationRoute>
+                <Login />
+              </ProtectedRegistrationRoute>
+            }
+          />
+          <Route
+            path="/SignUp"
+            element={
+              <ProtectedRegistrationRoute>
+                <SignUp />
+              </ProtectedRegistrationRoute>
+            }
+          />
+          <Route
+            path="/Categories"
+            element={
+              <ProtectedRoute>
+                <Categories />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/Transactions"
+            element={
+              <ProtectedRoute>
+                <Transactions />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/Budgets"
+            element={
+              <ProtectedRoute>
+                <Budgets />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<NoMatch />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
