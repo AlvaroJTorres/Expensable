@@ -6,9 +6,27 @@ import { StyledIcon } from "./Card";
 import { ICONS } from "../app/config";
 import { useState } from "react";
 import { ReactComponent as Filter } from "../icons/filter.svg";
+import { useRef } from "react";
+import { useEffect } from "react";
 
 const StyledTransactionSidebar = styled.div`
-  ${tw`flex flex-col gap-4 px-8 pt-6 border-l-2 border-gray-200`};
+  ${tw`hidden lg:flex lg:flex-col gap-4 px-2 pt-6 border-l-2 border-gray-200 h-screen`};
+`;
+
+const StyledTransactionFilter = styled.div`
+  /* ::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none; */
+  ${tw`absolute top-12 w-auto h-32 self-end z-50 overflow-y-auto border-2 bg-gray-200`}
+  & {
+    p {
+      ${tw`text-black p-2`}
+    }
+    .active {
+      ${tw`text-red-500`}
+    }
+  } ;
 `;
 
 const StyledTransactionScroller = styled.div`
@@ -24,7 +42,7 @@ const StyledDailyTransactionContainer = styled.div`
 `;
 
 const StyledDayTransactionContainer = styled.div`
-  ${tw`flex bg-gray-50 border-t-2 border-gray-200 gap-4 p-4`}
+  ${tw`flex justify-around bg-gray-50 border-t-2 border-gray-200 gap-4 p-4`}
 `;
 
 const StyledNumericalDay = styled.h2`
@@ -41,14 +59,15 @@ const StyledDateText = styled.h3`
 `;
 
 const StyledTotalTransaction = styled.h2`
-  ${tw`text-xl text-red-500`}
+  ${tw`text-lg text-red-500`}
 `;
 
 const StyledTransactionContainer = styled.div`
-  ${tw`flex border-t-2 border-gray-200 items-center gap-4 p-4`}
+  ${tw`flex justify-around border-t-2 border-gray-200 items-center gap-4 p-4`}
 `;
 
 export default function TransactionsSidebar({ categories, currentDate }) {
+  const ref = useRef(null);
   const [filter, setFilter] = useState("");
   const [display, setDisplay] = useState(false);
   const transactionsList = DatedTransactions(categories, currentDate);
@@ -67,6 +86,16 @@ export default function TransactionsSidebar({ categories, currentDate }) {
     setDisplay(!display);
   }
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (ref.current) {
+        setDisplay(!display);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  });
+
   return (
     <StyledTransactionSidebar>
       <div className="flex justify-between px-8">
@@ -76,17 +105,23 @@ export default function TransactionsSidebar({ categories, currentDate }) {
         </button>
       </div>
       {display && (
-        <div className="flex flex-col">
-          <p onClick={() => handleFilter("")}>None</p>
+        <StyledTransactionFilter ref={ref}>
+          <p
+            className={filter === "" ? "active" : ""}
+            onClick={() => handleFilter("")}
+          >
+            No Filter
+          </p>
           {transactionsList.map((transaction) => (
             <p
+              className={transaction.date === filter ? "active" : ""}
               key={transaction.date}
               onClick={() => handleFilter(transaction.date)}
             >
               {transaction.date}
             </p>
           ))}
-        </div>
+        </StyledTransactionFilter>
       )}
       <StyledTransactionScroller>
         {filterTransactionsPerDay(transactionsList).map((transaction) => (

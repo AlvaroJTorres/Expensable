@@ -13,12 +13,51 @@ import NewTransactionForm from "../components/NewTransactionForm";
 import { ReactComponent as Right } from "../icons/right.svg";
 import { ReactComponent as Left } from "../icons/left.svg";
 
+const transaction_type = [
+  { type: "expense", name: "Expenses", sign: "-" },
+  { type: "income", name: "Income", sign: "+" },
+];
+
+const StyledCategoriesPage = styled.div`
+  ${tw`grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-between w-full h-screen`}
+`;
+
+const StyledCategoriesMain = styled.main`
+  ${tw`flex flex-col px-8 py-6 col-span-2 xl:col-span-3`}
+`;
+
+const StyledCategoriesTitle = styled.h1`
+  ${tw`text-gray-900 sm:text-2xl`}
+`;
+
 const StyledCardsContainer = styled.div`
-  ${tw`grid grid-cols-3 auto-rows-auto gap-x-2 gap-y-2.5 p-10`}
+  ${tw`grid grid-cols-2 xl:grid-cols-3 auto-rows-auto gap-x-2 gap-y-2.5 p-4`}
 `;
 
 const StyledNewButton = styled.div`
-  ${tw`flex items-center justify-center border-2 border-stone-400 border-dashed rounded-lg py-4`}
+  ${tw`flex items-center justify-center border-2 border-stone-400 border-dashed rounded-lg py-4 cursor-pointer`}
+`;
+
+const StyledTransactionType = styled.button.attrs({
+  className:
+    "flex gap-2 items-center text-gray-500 border-b-2 border-transparent pb-4",
+})`
+  & {
+    p {
+      ${tw`flex justify-center items-center border-2 border-gray-500 rounded-full w-4 h-4`}
+    }
+  }
+`;
+
+const StyledActiveTransactionType = styled.button.attrs({
+  className:
+    "flex gap-2 items-center text-pink-600 border-b-2 border-pink-600 pb-4",
+})`
+  & {
+    p {
+      ${tw`flex justify-center items-center border-2 border-pink-600 rounded-full w-4 h-4`}
+    }
+  }
 `;
 
 const initialState = {
@@ -70,8 +109,8 @@ export default function Categories() {
     showCategories();
   }, []);
 
-  function handleTypeChange(e) {
-    setType(e.target.value);
+  function handleTypeChange(type) {
+    setType(type);
   }
 
   function filterCategories(categories) {
@@ -102,17 +141,32 @@ export default function Categories() {
   }
 
   return (
-    <div className="flex h-screen">
+    <StyledCategoriesPage>
       <SidebarNav />
-      <div className="px-8 py-6">
+      <StyledCategoriesMain>
         {categories ? (
-          <div className="flex flex-col">
-            <h1 className="text-gray-900 sm:text-2xl">Categories</h1>
-            <div onChange={(e) => handleTypeChange(e)}>
-              <input type="radio" value="expense" name="type" />
-              Expenses
-              <input type="radio" value="income" name="type" />
-              Income
+          <div className="flex flex-col gap-4">
+            <StyledCategoriesTitle>Categories</StyledCategoriesTitle>
+            <div className="flex gap-9 text-sm border-b-2 border-gray-200">
+              {transaction_type.map((transaction) =>
+                type === transaction.type ? (
+                  <StyledActiveTransactionType
+                    key={transaction.type}
+                    onClick={() => handleTypeChange(transaction.type)}
+                  >
+                    <p>{transaction.sign}</p>
+                    {transaction.name}
+                  </StyledActiveTransactionType>
+                ) : (
+                  <StyledTransactionType
+                    key={transaction.type}
+                    onClick={() => handleTypeChange(transaction.type)}
+                  >
+                    <p>{transaction.sign}</p>
+                    {transaction.name}
+                  </StyledTransactionType>
+                )
+              )}
             </div>
             <div>
               <div className="flex flex-col items-center gap-2.5">
@@ -163,7 +217,7 @@ export default function Categories() {
         ) : (
           <div>LOADING</div>
         )}
-      </div>
+      </StyledCategoriesMain>
       <TransactionsSidebar
         categories={categories}
         currentDate={format(state.currentDate, "yyyy-MM")}
@@ -182,6 +236,6 @@ export default function Categories() {
           />
         </Modal>
       )}
-    </div>
+    </StyledCategoriesPage>
   );
 }

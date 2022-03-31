@@ -1,6 +1,6 @@
 import { useResolvedPath, useMatch, Link } from "react-router-dom";
 
-export default function CustomLink({ name, icon, activeIcon, to }) {
+export function CustomLink({ name, icon, activeIcon, to }) {
   let resolved = useResolvedPath(to);
   let match = useMatch({ path: resolved.pathname, end: true });
 

@@ -4,7 +4,7 @@ import { ICONS, STYLES } from "../app/config";
 
 const StyledCardContainer = styled.div`
   border-color: ${(props) => STYLES[props.inputColor]};
-  ${tw`flex items-center border-2 rounded-lg p-4 gap-4`}
+  ${tw`flex items-center border-2 rounded-lg p-4 gap-4 cursor-pointer`}
 `;
 
 export const StyledIcon = styled.div`
@@ -21,7 +21,7 @@ const StyledCategoryName = styled.div`
 `;
 
 const StyledCategoryAmount = styled.div`
-  ${tw`text-2xl text-gray-900`}
+  ${tw`text-xl text-gray-900`}
 `;
 
 export function Card({ color, icon, name, amount, children, onClick }) {

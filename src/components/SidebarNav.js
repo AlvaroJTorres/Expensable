@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { getUserData } from "../services/user_service";
 import { logoutSession } from "../services/login_service";
 import { useNavigate } from "react-router";
-import CustomLink from "./CustomLink";
+import { CustomLink } from "./CustomLink";
 import { ReactComponent as Targeted } from "../icons/targeted.svg";
 import { ReactComponent as TargetedFill } from "../icons/targetedFill.svg";
 import { ReactComponent as BxCategory } from "../icons/bxCategory.svg";

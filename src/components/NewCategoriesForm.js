@@ -47,14 +47,15 @@ export default function NewCategoriesForm({ dispatch, type }) {
     const token = localStorage.getItem("token");
     data.user_id = +localStorage.getItem("userId");
     data.transaction_type = type;
-    const categoryData = await newCategory(token, data);
-    if (categoryData.status === "error") {
-      alert(categoryData.message);
-    } else {
-      console.log(categoryData);
-      dispatch({ type: "closed" });
-      window.location.reload();
-    }
+    console.log(token, data);
+    // const categoryData = await newCategory(token, data);
+    // if (categoryData.status === "error") {
+    //   alert(categoryData.message);
+    // } else {
+    //   console.log(categoryData);
+    //   dispatch({ type: "closed" });
+    //   window.location.reload();
+    // }
   }
 
   return (
