@@ -33,10 +33,13 @@ export default function Screen({
 
   function handleKeyDown(e) {
     if (e.keyCode === 13) {
+      e.preventDefault();
       operator ? calculate() : submit();
     } else if (e.keyCode === 8) {
+      e.preventDefault();
       del();
     } else if (e.keyCode === 67) {
+      e.preventDefault();
       clear();
     }
   }
@@ -45,7 +48,7 @@ export default function Screen({
       <input
         value={`$ ${[prevNumber, operator, currentNumber].join(" ")}`}
         onChange={handleChange}
-        onKeyDown={(e, category) => handleKeyDown(e, category)}
+        onKeyDown={(e) => handleKeyDown(e)}
       />
     </StyledDiv>
   );

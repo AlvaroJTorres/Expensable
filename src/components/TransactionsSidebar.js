@@ -148,8 +148,8 @@ export default function TransactionsSidebar({ categories, currentDate }) {
                 )}
               </StyledTotalTransaction>
             </StyledDayTransactionContainer>
-            {transaction.transactions.map((transaction) => (
-              <StyledTransactionContainer key={transaction.id}>
+            {transaction.transactions.map((transaction, index) => (
+              <StyledTransactionContainer key={index}>
                 <StyledIcon inputColor={transaction.color}>
                   {ICONS[transaction.icon]}
                 </StyledIcon>

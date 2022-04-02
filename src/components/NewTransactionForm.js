@@ -34,7 +34,6 @@ export default function NewTransactionForm({
 
   async function handleSubmit() {
     const token = localStorage.getItem("token");
-    console.log(token);
     const transactionData = {
       amount: currentNumber,
       date: format(startDate, "yyyy-MM-dd"),

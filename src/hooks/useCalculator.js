@@ -61,20 +61,25 @@ export function useCalculator() {
       default:
         break;
     }
-    setCurrentNumber(`${Math.round((result + Number.EPSILON) * 100) / 100}`);
+    setCurrentNumber(
+      `${Math.abs(Math.round((result + Number.EPSILON) * 100) / 100)}`
+    );
     setOperator(null);
     setPrevNumber(null);
   }
 
   function handleDelete() {
+    console.log(currentNumber);
     if (currentNumber.length === 1 && prevNumber == null && operator == null) {
       setCurrentNumber("0");
+      console.log(currentNumber);
     } else if (
       currentNumber.length === 2 &&
       prevNumber != null &&
       operator != null
     ) {
       setCurrentNumber(" ");
+      console.log(currentNumber);
     } else if (
       currentNumber === " " &&
       prevNumber != null &&
@@ -83,8 +88,10 @@ export function useCalculator() {
       setCurrentNumber(prevNumber);
       setPrevNumber(null);
       setOperator(null);
+      console.log(currentNumber);
     } else {
       setCurrentNumber(currentNumber.slice(0, -1));
+      console.log(currentNumber);
     }
   }
 
