@@ -68,7 +68,10 @@ export default function NewCategoriesForm({ dispatch, type }) {
           setNewCategory(data);
         })}
       >
-        <FormInput label="name" {...register("name", { required: "true" })} />
+        <FormInput
+          label="name"
+          {...register("name", { required: "Category must have a name" })}
+        />
         <StyledError>{errors.name?.message}</StyledError>
         <div>
           <StyledFormLabel>COLOR</StyledFormLabel>
