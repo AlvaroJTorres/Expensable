@@ -15,7 +15,7 @@ import { ReactComponent as EducationFill } from "../icons/educationFill.svg";
 import { ReactComponent as CarFill } from "../icons/carFill.svg";
 import { ReactComponent as GiftFill } from "../icons/giftFill.svg";
 
-export const BASE_URL = "http://localhost:5000";
+export const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export const STYLES = {
   red: "#EF4444",
