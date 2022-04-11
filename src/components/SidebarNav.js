@@ -32,7 +32,7 @@ const navigation = [
 ];
 
 const StyledSidebarContainer = styled.div`
-  ${tw`flex flex-col justify-between bg-gray-100 border-r-2 border-gray-200`}
+  ${tw`flex flex-col justify-between bg-gray-100 border-r-2 border-gray-200 h-screen`}
 `;
 
 const StyledSidebarLinksContainer = styled.div`

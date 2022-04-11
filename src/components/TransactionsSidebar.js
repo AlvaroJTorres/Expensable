@@ -59,7 +59,7 @@ const StyledDateText = styled.h3`
 `;
 
 const StyledTotalTransaction = styled.h2`
-  ${tw`text-lg text-red-500`}
+  ${tw`text-red-500`}
 `;
 
 const StyledTransactionContainer = styled.div`
@@ -124,56 +124,74 @@ export default function TransactionsSidebar({ categories, currentDate }) {
         </StyledTransactionFilter>
       )}
       <StyledTransactionScroller>
-        {filterTransactionsPerDay(transactionsList).map((transaction) => (
-          <StyledDailyTransactionContainer key={transaction.date}>
-            <StyledDayTransactionContainer>
-              <StyledNumericalDay>
-                {format(new Date(`${transaction.date} `), "dd")}
-              </StyledNumericalDay>
-              <StyledInfoContainer>
-                <StyledDateText>
-                  {format(new Date(`${transaction.date} `), "EEEE")}
-                </StyledDateText>
-                <StyledDateText txColor={"dark"}>
-                  {format(new Date(`${transaction.date} `), "MMMM, yyyy")}
-                </StyledDateText>
-              </StyledInfoContainer>
-              <StyledTotalTransaction>
-                {transaction.transactions.reduce(
-                  (acc, curr) =>
-                    curr.transaction_type === "income"
-                      ? acc + curr.amount
-                      : acc - curr.amount,
-                  0
-                )}
-              </StyledTotalTransaction>
-            </StyledDayTransactionContainer>
-            {transaction.transactions.map((transaction, index) => (
-              <StyledTransactionContainer key={index}>
-                <StyledIcon inputColor={transaction.color}>
-                  {ICONS[transaction.icon]}
-                </StyledIcon>
+        {transactionsList.length === 0 ? (
+          <StyledDayTransactionContainer>
+            No Transactions yet
+          </StyledDayTransactionContainer>
+        ) : (
+          filterTransactionsPerDay(transactionsList).map((transaction) => (
+            <StyledDailyTransactionContainer key={transaction.date}>
+              <StyledDayTransactionContainer>
+                <StyledNumericalDay>
+                  {format(Date.parse(transaction.date), "dd")}
+                </StyledNumericalDay>
                 <StyledInfoContainer>
-                  <StyledDateText txColor={"dark"}>
-                    {transaction.name}
-                  </StyledDateText>
                   <StyledDateText>
-                    {transaction.notes ? transaction.notes : "No notes"}
+                    {format(Date.parse(transaction.date), "EEEE")}
+                  </StyledDateText>
+                  <StyledDateText txColor={"dark"}>
+                    {format(Date.parse(transaction.date), "MMMM, yyyy")}
                   </StyledDateText>
                 </StyledInfoContainer>
-                {transaction.transaction_type === "income" ? (
-                  <StyledTotalTransaction>
-                    $ {transaction.amount}
-                  </StyledTotalTransaction>
-                ) : (
-                  <StyledTotalTransaction>
-                    -$ {transaction.amount}
-                  </StyledTotalTransaction>
-                )}
-              </StyledTransactionContainer>
-            ))}
-          </StyledDailyTransactionContainer>
-        ))}
+                <StyledTotalTransaction>
+                  {transaction.transactions
+                    .reduce(
+                      (acc, curr) =>
+                        curr.transaction_type === "income"
+                          ? acc + curr.amount
+                          : acc - curr.amount,
+                      0
+                    )
+                    .toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    })}
+                </StyledTotalTransaction>
+              </StyledDayTransactionContainer>
+              {transaction.transactions.map((transaction, index) => (
+                <StyledTransactionContainer key={index}>
+                  <StyledIcon inputColor={transaction.color}>
+                    {ICONS[transaction.icon]}
+                  </StyledIcon>
+                  <StyledInfoContainer>
+                    <StyledDateText txColor={"dark"}>
+                      {transaction.name}
+                    </StyledDateText>
+                    <StyledDateText>
+                      {transaction.notes ? transaction.notes : "No notes"}
+                    </StyledDateText>
+                  </StyledInfoContainer>
+                  {transaction.transaction_type === "income" ? (
+                    <StyledTotalTransaction>
+                      {transaction.amount.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                      })}
+                    </StyledTotalTransaction>
+                  ) : (
+                    <StyledTotalTransaction>
+                      -{" "}
+                      {transaction.amount.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                      })}
+                    </StyledTotalTransaction>
+                  )}
+                </StyledTransactionContainer>
+              ))}
+            </StyledDailyTransactionContainer>
+          ))
+        )}
       </StyledTransactionScroller>
     </StyledTransactionSidebar>
   );

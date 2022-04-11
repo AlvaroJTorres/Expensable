@@ -46,7 +46,6 @@ export default function NewTransactionForm({
     if (newTransactionData.status === "error") {
       alert(newTransactionData.message);
     } else {
-      console.log(newTransactionData);
       dispatch({ type: "closed" });
       window.location.reload();
     }

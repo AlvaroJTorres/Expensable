@@ -30,7 +30,12 @@ export function Card({ color, icon, name, amount, children, onClick }) {
       <StyledIcon inputColor={color}>{ICONS[icon]}</StyledIcon>
       <StyledCategoryInfo>
         <StyledCategoryName>{name}</StyledCategoryName>
-        <StyledCategoryAmount>$ {amount}</StyledCategoryAmount>
+        <StyledCategoryAmount>
+          {amount.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+          })}
+        </StyledCategoryAmount>
       </StyledCategoryInfo>
       {children}
     </StyledCardContainer>

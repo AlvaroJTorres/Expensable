@@ -61,7 +61,7 @@ const StyledActiveTransactionType = styled.button.attrs({
 `;
 
 const initialState = {
-  currentDate: new Date("September, 2021"),
+  currentDate: new Date("05 September 2021 14:48 UTC"),
   modal: "closed",
 };
 
@@ -173,7 +173,7 @@ export default function Categories() {
                 <div className="flex gap-8">
                   <button
                     className="rounded-full p-2 bg-gray-100"
-                    onClick={() => dispatch({ type: "increase" })}
+                    onClick={() => dispatch({ type: "decrease" })}
                   >
                     <Left />
                   </button>
@@ -182,13 +182,16 @@ export default function Categories() {
                   </div>
                   <button
                     className="rounded-full p-2 bg-gray-100"
-                    onClick={() => dispatch({ type: "decrease" })}
+                    onClick={() => dispatch({ type: "increase" })}
                   >
                     <Right />
                   </button>
                 </div>
                 <h1 className="text-red-500 text-4xl">
-                  $ {totalTransactions(categories)}
+                  {totalTransactions(categories).toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  })}
                 </h1>
                 <div className="text-gray-500">
                   Total {type === "expense" ? "Expenses" : "Income"}

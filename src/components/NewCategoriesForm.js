@@ -51,7 +51,6 @@ export default function NewCategoriesForm({ dispatch, type }) {
     if (categoryData.status === "error") {
       alert(categoryData.message);
     } else {
-      console.log(categoryData);
       dispatch({ type: "closed" });
       window.location.reload();
     }
