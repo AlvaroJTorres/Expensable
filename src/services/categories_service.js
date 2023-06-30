@@ -1,7 +1,7 @@
-import { BASE_URL } from "../app/config";
+import { API_URL } from "../app/config";
 
 export async function getCategories(token) {
-  const res = await fetch(`${BASE_URL}/categories`, {
+  const res = await fetch(`${API_URL}/categories`, {
     method: "GET",
     headers: {
       Authorization: `Token token=${token}`,
@@ -11,7 +11,7 @@ export async function getCategories(token) {
 }
 
 export async function newCategory(token, categoryData) {
-  const res = await fetch(`${BASE_URL}/categories`, {
+  const res = await fetch(`${API_URL}/categories`, {
     method: "POST",
     headers: {
       Authorization: `Token token=${token}`,

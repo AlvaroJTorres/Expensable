@@ -1,7 +1,7 @@
-import { BASE_URL } from "../app/config";
+import { API_URL } from "../app/config";
 
 export async function userSignUp(userData) {
-  const res = await fetch(`${BASE_URL}/signup`, {
+  const res = await fetch(`${API_URL}/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -12,7 +12,7 @@ export async function userSignUp(userData) {
 }
 
 export async function getUserData(token) {
-  const res = await fetch(`${BASE_URL}/profile`, {
+  const res = await fetch(`${API_URL}/profile`, {
     method: "GET",
     headers: {
       Authorization: `Token token=${token}`,

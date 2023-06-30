@@ -1,7 +1,7 @@
-import { BASE_URL } from "../app/config";
+import { API_URL } from "../app/config";
 
 export async function newTransaction(id, token, transactionData) {
-  const res = await fetch(`${BASE_URL}/categories/${id}/transactions`, {
+  const res = await fetch(`${API_URL}/categories/${id}/transactions`, {
     method: "POST",
     headers: {
       Authorization: `Token token=${token}`,

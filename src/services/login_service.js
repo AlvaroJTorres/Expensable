@@ -1,7 +1,7 @@
-import { BASE_URL } from "../app/config";
+import { API_URL } from "../app/config";
 
 export async function loginSession(loginData) {
-  const res = await fetch(`${BASE_URL}/login`, {
+  const res = await fetch(`${API_URL}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -12,7 +12,7 @@ export async function loginSession(loginData) {
 }
 
 export async function logoutSession(token) {
-  return await fetch(`${BASE_URL}/logout`, {
+  return await fetch(`${API_URL}/logout`, {
     method: "DELETE",
     headers: {
       Authorization: `Token token=${token}`,
