@@ -28,8 +28,8 @@ export default function Login() {
 
   async function newSession(data) {
     const userData = await loginSession(data);
-    if (userData.status === "error") {
-      alert(userData.message);
+    if (userData.hasOwnProperty("errors")) {
+      alert(userData.errors);
     } else {
       localStorage.setItem("token", userData.token);
       navigate("/Categories");
